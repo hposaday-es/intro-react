@@ -4,6 +4,7 @@ import TodoForm from './components/TodoForm';
 import './styles.scss';
 
 class App extends React.Component {
+
 	state = {
 		todos: []
 	}
@@ -27,6 +28,21 @@ class App extends React.Component {
 		this.setState({ todos: newTodos });
 	}
 
+	handleOnEdit = (todo) => {
+		console.log(todo, 'todo onm edit')
+		const newTodoArray = this.state.todos;
+	}
+	
+	handleOnDelete = (index) => {
+		const newTodoArray = this.state.todos;
+
+		newTodoArray.splice(index, 1);
+
+		this.setState({
+			todos: newTodoArray
+		})
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -36,6 +52,12 @@ class App extends React.Component {
 							text={todo.text}
 							isDone={todo.isDone}
 							onCheck={this.handleOnTodoCheck.bind(null, index)}
+							onEdit={this.handleOnEdit.bind(null, {
+								todo,
+								index
+							})}
+							onDelete={this.handleOnDelete.bind(null,index)}
+							
 						/>
 					);
 				})}
